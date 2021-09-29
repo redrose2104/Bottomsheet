@@ -36,8 +36,8 @@ open class Bottomsheet {
             get { return overlayView.backgroundColor }
         }
         open var containerViewBackgroundColor = UIColor(white: 1, alpha: 1)
-        open let overlayView = UIView()
-        open let containerView = UIView()
+        public let overlayView = UIView()
+        public let containerView = UIView()
         // MARK: - Private property
         fileprivate let overlayViewPanGestureRecognizer: UIPanGestureRecognizer = {
             let gestureRecognizer = UIPanGestureRecognizer()
@@ -96,7 +96,7 @@ open class Bottomsheet {
             configure()
             configureConstraints()
         }
-        
+
         // MARK: - Open method
         // Adds UIToolbar
         open func addToolbar(_ configurationHandler: ((UIToolbar) -> Void)? = nil) {
@@ -136,7 +136,7 @@ open class Bottomsheet {
             configurationHandler?(toolbar)
             self.bar = toolbar
         }
-        
+
         // Adds UINavigationbar
         open func addNavigationbar(_ configurationHandler: ((UINavigationBar) -> Void)? = nil) {
             guard !hasBar else { fatalError("UIToolbar or UINavigationBar can only have one") }
@@ -175,7 +175,7 @@ open class Bottomsheet {
             configurationHandler?(navigationBar)
             self.bar = navigationBar
         }
-        
+
         // Adds ContentsView
         open func addContentsView(_ contentView: UIView) {
             guard !hasView else { fatalError("ContainerView can only have one") }
@@ -212,7 +212,7 @@ open class Bottomsheet {
             containerView.addConstraints([topConstraint, leftConstraint, rightConstraint, bottomConstraint])
             self.contentView = contentView
         }
-        
+
         // Adds UIScrollView
         open func addScrollView(isScrollEnabledInSheet: Bool = true, configurationHandler: ((UIScrollView) -> Void)) {
             guard !hasView else { fatalError("ContainerView can only have one \(containerView.subviews)") }
@@ -252,7 +252,7 @@ open class Bottomsheet {
             containerView.addConstraints([topConstraint, leftConstraint, rightConstraint, bottomConstraint])
             self.scrollView = scrollView
         }
-        
+
         // Adds UICollectionView
         open func addCollectionView(isScrollEnabledInSheet: Bool = true, flowLayout: UICollectionViewFlowLayout? = nil, configurationHandler: ((UICollectionView) -> Void)) {
             guard !hasView else { fatalError("ContainerView can only have one \(containerView.subviews)") }
@@ -299,7 +299,7 @@ open class Bottomsheet {
             collectionView.reloadData()
             self.scrollView = collectionView
         }
-        
+
         // Adds UITableView
         open func addTableView(isScrollEnabledInSheet: Bool = true, configurationHandler: ((UITableView) -> Void)) {
             guard !hasView else { fatalError("ContainerView can only have one \(containerView.subviews)") }
@@ -340,11 +340,10 @@ open class Bottomsheet {
             tableView.reloadData()
             self.scrollView = tableView
         }
-        
+
         // Life cycle
         open override func viewDidLoad() {
             super.viewDidLoad()
-            automaticallyAdjustsScrollViewInsets = false
             overlayView.backgroundColor = overlayBackgroundColor
             containerView.backgroundColor = containerViewBackgroundColor
             state = .hide
